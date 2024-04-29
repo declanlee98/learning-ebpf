@@ -45,6 +45,8 @@ int hello(void *ctx) {
 b = BPF(text=program) 
 syscall = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=syscall, fn_name="hello")
+# b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello")
+
 b["config"][ct.c_int(0)] = ct.create_string_buffer(b"Hey root!")
 b["config"][ct.c_int(501)] = ct.create_string_buffer(b"Hi user 501!")
  
